@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -eo pipefail
+[[ "${DEBUG}" == "true" ]] && set -x
+
+if [[ -z "${ENTRYPOINT_INITIALIZED}" ]]
+then
+  for FILE in $(find /etc/entrypoint.d -iname \*.sh | sort)
+  do
+    source ${FILE}
+  done
+fi
+
+
+case ${1} in
+  start)
+    for FILE in $(find /etc/server.d -iname \*.sh | sort)
+    do
+      source ${FILE}
+    done
+
+    echo "Starting apache daemon..."
+    exec apachectl -f /etc/apache2/apache2.conf -DFOREGROUND
+    ;;
+  *)
+    exec $@
+    ;;
+esac

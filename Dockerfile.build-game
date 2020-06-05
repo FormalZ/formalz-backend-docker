@@ -1,0 +1,18 @@
+FROM node:8
+ARG GAMESERVER_GIT_REF
+ENV GAMESERVER_GIT_REPO_URL=https://github.com/e-ucm/formalz-game.git
+ENV GAMESERVER_GIT_REF=${GAMESERVER_GIT_REF:-dev}
+# Build the game
+RUN set -ex; \
+    git clone --depth 1 --branch ${GAMESERVER_GIT_REF} ${GAMESERVER_GIT_REPO_URL} /app > /dev/null 2>&1;\
+    cd /app/Front-end; \
+    mv webpack.dist.config.js webpack.dist.config.js.backup; \
+    npm install; \
+    mv -f webpack.dist.config.js.backup webpack.dist.config.js; \
+    npm run build:dist; \
+# package
+    mkdir -p "/formalz-game_${GAMESERVER_GIT_REF}/js"; \
+    mv /app/Front-end/dist/game.min.js "/formalz-game_${GAMESERVER_GIT_REF}/js"; \
+    mv /app/Front-end/dist/assets "/formalz-game_${GAMESERVER_GIT_REF}"; \
+    tar -czvf "/formalz-game_${GAMESERVER_GIT_REF}.tar.gz" "/formalz-game_${GAMESERVER_GIT_REF}" > /dev/null 2>&1; \
+    rm -fr "/formalz-game_${GAMESERVER_GIT_REF}" /app /tmp/*;

@@ -1,0 +1,13 @@
+FROM maven:3.6.3-jdk-8
+ARG GAMESERVER_GIT_REF
+ENV GAMESERVER_GIT_REPO_URL=https://github.com/e-ucm/formalz-game.git
+ENV GAMESERVER_GIT_REF=${GAMESERVER_GIT_REF:-dev}
+RUN set -ex; \
+    git clone --depth 1 --branch ${GAMESERVER_GIT_REF} ${GAMESERVER_GIT_REPO_URL} /app > /dev/null 2>&1; \
+    cd /app/PathGeneration; \
+    mvn package -DskipTests; \
+    mv target/PathGeneration.jar /; \
+    rm -fr /app /tmp/* /root/.m2/repository/*;
+
+ENTRYPOINT ["java", "-jar", "/PathGeneration.jar"]
+CMD ["17", "8", "4", "4", "3"]

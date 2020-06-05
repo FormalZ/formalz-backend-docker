@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -eo pipefail
+[[ "${DEBUG}" == "true" ]] && set -x
+
+for file in $(find /etc/entrypoint.d -iname \*.sh | sort)
+do
+  source ${file}
+done
+
+exec $@

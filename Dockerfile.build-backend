@@ -1,0 +1,13 @@
+FROM composer:1.9
+ARG GAMESERVER_GIT_REF
+ENV GAMESERVER_GIT_REPO_URL=https://github.com/e-ucm/formalz-game.git
+ENV GAMESERVER_GIT_REF=${GAMESERVER_GIT_REF:-dev}
+RUN set -ex; \
+    git clone --depth 1 --branch ${GAMESERVER_GIT_REF} ${GAMESERVER_GIT_REPO_URL} /tmp/gameserver > /dev/null 2>&1; \
+    cd /tmp/gameserver/public_html/impress; \
+    composer install --no-dev --prefer-dist --no-scripts -q -o ; \
+# package
+    cd ..; \
+    mv impress "formalz-backend_${GAMESERVER_GIT_REF}"; \
+    tar -czvf "/formalz-backend_${GAMESERVER_GIT_REF}.tar.gz" "formalz-backend_${GAMESERVER_GIT_REF}" > /dev/null 2>&1; \
+    rm -fr "/formalz-backend_${GAMESERVER_GIT_REF}" /app /tmp/*;

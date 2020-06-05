@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+
+declare -x FORMALZ_APP_NAME
+[[ -z "${FORMALZ_APP_NAME}" ]] && FORMALZ_APP_NAME="FormalZ"
+
+declare -x FORMALZ_APP_ENV
+[[ -z "${FORMALZ_APP_ENV}" ]] && FORMALZ_APP_ENV="production"
+
+declare -x FORMALZ_APP_KEY
+[[ -z "${FORMALZ_APP_KEY}" ]] && FORMALZ_APP_KEY="base64:MDEyMzQ1Njc4OUFCQ0RFRjAxMjM0NTY3ODlBQkNERUYK" # 0123456789ABCDEF0123456789ABCDEF
+
+declare -x FORMALZ_APP_DEBUG
+[[ -z "${FORMALZ_APP_DEBUG}" ]] && FORMALZ_APP_DEBUG="false"
+
+declare -x FORMALZ_APP_LOG_LEVEL
+[[ -z "${FORMALZ_APP_LOG_LEVEL}" ]] && FORMALZ_APP_LOG_LEVEL="info"
+
+declare -x FORMALZ_APP_URL
+[[ -z "${FORMALZ_APP_URL}" ]] && FORMALZ_APP_URL="http://localhost"
+
+## DB configuration
+
+declare -x FORMALZ_DB_HOST
+[[ -z "${FORMALZ_DB_HOST}" ]] && FORMALZ_DB_HOST="localhost"
+
+declare -x FORMALZ_DB_PORT
+[[ -z "${FORMALZ_DB_PORT}" ]] && FORMALZ_DB_PORT="3306"
+
+declare -x FORMALZ_DB_DATABASE
+[[ -z "${FORMALZ_DB_DATABASE}" ]] && FORMALZ_DB_DATABASE="formalz"
+
+declare -x FORMALZ_DB_USERNAME
+[[ -z "${FORMALZ_DB_USERNAME}" ]] && FORMALZ_DB_USERNAME="db-user"
+
+declare -x FORMALZ_DB_PASSWORD
+[[ -z "${FORMALZ_DB_PASSWORD}" ]] && FORMALZ_DB_PASSWORD="db-secret"
+
+## Mail configuration
+
+declare -x FORMALZ_MAIL_DRIVER
+[[ -z "${FORMALZ_MAIL_DRIVER}" ]] && FORMALZ_MAIL_DRIVER="smtp"
+
+declare -x FORMALZ_MAIL_HOST
+[[ -z "${FORMALZ_MAIL_HOST}" ]] && FORMALZ_MAIL_HOST="mail"
+
+declare -x FORMALZ_MAIL_PORT
+[[ -z "${FORMALZ_MAIL_PORT}" ]] && FORMALZ_MAIL_PORT="25"
+
+declare -x FORMALZ_MAIL_USERNAME
+[[ -z "${FORMALZ_MAIL_USERNAME}" ]] && FORMALZ_MAIL_USERNAME=""
+
+declare -x FORMALZ_MAIL_PASSWORD
+[[ -z "${FORMALZ_MAIL_PASSWORD}" ]] && FORMALZ_MAIL_PASSWORD=""
+
+declare -x FORMALZ_MAIL_ENCRYPTION
+[[ -z "${FORMALZ_MAIL_ENCRYPTION}" ]] && FORMALZ_MAIL_ENCRYPTION=""
+
+## Trusted proxy configuration
+
+declare -x INTERNAL_PROXY_HOSTNAME
+[[ -z "${INTERNAL_PROXY_HOSTNAME}" ]] && INTERNAL_PROXY_HOSTNAME=""
+
+## Game websocket configuration 
+
+declare -x FORMALZ_GAMESERVER_PROTOCOL
+[[ -z "${FORMALZ_GAMESERVER_PROTOCOL}" ]] && FORMALZ_GAMESERVER_PROTOCOL="ws"
+
+declare -x FORMALZ_GAMESERVER_HOST
+[[ -z "${FORMALZ_GAMESERVER_HOST}" ]] && FORMALZ_GAMESERVER_HOST="localhost"
+
+declare -x FORMALZ_GAMESERVER_PORT
+[[ -z "${FORMALZ_GAMESERVER_PORT}" ]] && FORMALZ_GAMESERVER_PORT="80"
+
+declare -x FORMALZ_GAMESERVER_PATH
+[[ -z "${FORMALZ_GAMESERVER_PATH}" ]] && FORMALZ_GAMESERVER_PATH="/gameserver"
+
+## Game admin configuration
+
+declare -x FORMALZ_ADMIN_USERNAME
+[[ -z "${FORMALZ_ADMIN_USERNAME}" ]] && FORMALZ_ADMIN_USERNAME="admin"
+
+declare -x FORMALZ_ADMIN_PASSWORD
+[[ -z "${FORMALZ_ADMIN_PASSWORD}" ]] && FORMALZ_ADMIN_PASSWORD="secret"
+
+declare -x FORMALZ_ADMIN_EMAIL
+[[ -z "${FORMALZ_ADMIN_EMAIL}" ]] && FORMALZ_ADMIN_EMAIL="admin@example.com"
+
+declare -x FORMALZ_ADMIN_JOB_TITLE
+[[ -z "${FORMALZ_ADMIN_JOB_TITLE}" ]] && FORMALZ_ADMIN_JOB_TITLE="Administrator"
+
+
+## Analytics configuration
+
+declare -x FORMALZ_ANALYTICS_ENABLED
+[[ -z "${FORMALZ_ANALYTICS_ENABLED}" ]] && FORMALZ_ANALYTICS_ENABLED="false"
+
+declare -x FORMALZ_ANALYTICS_BASE_URL
+[[ -z "${FORMALZ_ANALYTICS_BASE_URL}" ]] && FORMALZ_ANALYTICS_BASE_URL="http://analytics.example.com:3000/"
+
+declare -x FORMALZ_ANALYTICS_API_BASE_URL
+[[ -z "${FORMALZ_ANALYTICS_API_BASE_URL}" ]] && FORMALZ_ANALYTICS_API_BASE_URL="http://api.analytics.example.com:3000/"
+
+declare -x FORMALZ_ANALYTICS_ADMIN_USERNAME
+[[ -z "${FORMALZ_ANALYTICS_ADMIN_USERNAME}" ]] && FORMALZ_ANALYTICS_ADMIN_USERNAME="analytics-admin"
+
+declare -x FORMALZ_ANALYTICS_ADMIN_PASSWORD
+[[ -z "${FORMALZ_ANALYTICS_ADMIN_PASSWORD}" ]] && FORMALZ_ANALYTICS_ADMIN_PASSWORD="analytics-admin-secret"
+
+true

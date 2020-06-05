@@ -1,0 +1,62 @@
+FROM php:7.3-apache
+# Build the complete image
+RUN set -ex; \
+    \
+    savedAptMark="$(apt-mark showmanual)"; \
+    \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+        libjpeg-dev \
+        libpng-dev \
+        libfreetype6-dev \
+    ; \
+    docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd; \
+    docker-php-ext-configure mysqli --with-mysqli=mysqlnd; \
+    docker-php-ext-install pdo_mysql; \
+    docker-php-ext-install mysqli; \
+    pecl install apcu-stable; \
+    docker-php-ext-enable apcu; \
+    \
+    apt-mark auto '.*' > /dev/null; \
+    apt-mark manual $savedAptMark; \
+    ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
+        | awk '/=>/ { print $3 }' \
+        | sort -u \
+        | xargs -r dpkg-query -S \
+        | cut -d: -f1 \
+        | sort -u \
+        | xargs -rt apt-mark manual; \
+    \
+    apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN set -ex; \
+    { \
+        echo 'realpath_cache_size=4096k'; \
+        echo 'realpath_cache_ttl=300'; \
+    } > /usr/local/etc/php/conf.d/tuning.ini; 
+
+RUN set -ex; \
+    { \
+        echo 'date.timezone=UTC'; \
+    } > /usr/local/etc/php/conf.d/timezone.ini
+
+RUN set -ex; \
+    a2enmod rewrite;
+
+COPY overlay /
+COPY formalz-backend_dev.tar.gz /tmp/formalz-backend.tar.gz
+COPY formalz-game_dev.tar.gz /tmp/formalz-game.tar.gz
+COPY formalz-paths.tar.gz /tmp/formalz-paths.tar.gz
+RUN set -ex; \
+    tar -xzf /tmp/formalz-backend.tar.gz --strip-components=1 -C /app > /dev/null 2>&1; \
+    tar -xzf /tmp/formalz-game.tar.gz --strip-components=1 -C /app/public > /dev/null 2>&1; \
+    tar -xzf /tmp/formalz-paths.tar.gz -C /app/resources > /dev/null 2>&1; \
+    chown www-data: -R /app
+
+VOLUME ["/app/storage"]
+
+EXPOSE 8080
+
+ENTRYPOINT ["/usr/bin/entrypoint"]
+CMD ["/usr/bin/server", "start"]
