@@ -62,6 +62,7 @@ RUN set -ex; \
     echo "$FORMALZ_GAME_SHA256 /tmp/formalz-game.tar.gz" | sha256sum -c -; \
     curl -fsSL "$FORMALZ_DOWNLOAD_URL_PATHS" -o /tmp/formalz-paths.tar.gz; \
     echo "$FORMALZ_PATHS_SHA256 /tmp/formalz-paths.tar.gz" | sha256sum -c -; \
+    mkdir /app; \
     tar -xzf /tmp/formalz-backend.tar.gz --strip-components=1 -C /app > /dev/null 2>&1; \
     tar -xzf /tmp/formalz-game.tar.gz --strip-components=1 -C /app/public > /dev/null 2>&1; \
     tar -xzf /tmp/formalz-paths.tar.gz -C /app/resources > /dev/null 2>&1; \

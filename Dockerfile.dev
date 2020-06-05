@@ -49,6 +49,7 @@ COPY formalz-backend_dev.tar.gz /tmp/formalz-backend.tar.gz
 COPY formalz-game_dev.tar.gz /tmp/formalz-game.tar.gz
 COPY formalz-paths.tar.gz /tmp/formalz-paths.tar.gz
 RUN set -ex; \
+    mkdir /app; \
     tar -xzf /tmp/formalz-backend.tar.gz --strip-components=1 -C /app > /dev/null 2>&1; \
     tar -xzf /tmp/formalz-game.tar.gz --strip-components=1 -C /app/public > /dev/null 2>&1; \
     tar -xzf /tmp/formalz-paths.tar.gz -C /app/resources > /dev/null 2>&1; \
