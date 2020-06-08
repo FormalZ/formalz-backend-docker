@@ -137,9 +137,9 @@ function setup_admin_user()
 
     $con->select_db($con->real_escape_string($dbName));
 
-    $query = sprintf("SELECT * FROM `admins` WHERE `name` = '%s'",  $con->real_escape_string(adminUserName));
+    $query = sprintf("SELECT * FROM `admins` WHERE `name` = '%s'",  $con->real_escape_string($adminUserName));
     $res = $con->query($query);
-    if ($res !== false && $res->num_rows > 1) {
+    if ($res !== false && $res->num_rows > 0) {
         fwrite($stderr, "\n" . 'Formalz backend admin user already configured'. "\n");
         $res->free();
         $con->close();
