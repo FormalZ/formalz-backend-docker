@@ -179,4 +179,4 @@ popd
 
 setup_admin_user
 
-chown -R www-data:www-data /app
+chown -R www-data:www-data /app/storage
