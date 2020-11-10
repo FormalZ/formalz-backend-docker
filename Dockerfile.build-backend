@@ -9,5 +9,6 @@ RUN set -ex; \
 # package
     cd ..; \
     mv impress "formalz-backend_${GAMESERVER_GIT_REF}"; \
-    tar -czvf "/formalz-backend_${GAMESERVER_GIT_REF}.tar.gz" "formalz-backend_${GAMESERVER_GIT_REF}" > /dev/null 2>&1; \
+    mkdir -p /output; \
+    tar -czvf "/output/formalz-backend_${GAMESERVER_GIT_REF}.tar.gz" "formalz-backend_${GAMESERVER_GIT_REF}" > /dev/null 2>&1; \
     rm -fr "/formalz-backend_${GAMESERVER_GIT_REF}" /app /tmp/*;

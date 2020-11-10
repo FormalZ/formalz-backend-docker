@@ -6,7 +6,8 @@ RUN set -ex; \
     git clone --depth 1 --branch ${GAMESERVER_GIT_REF} ${GAMESERVER_GIT_REPO_URL} /app > /dev/null 2>&1; \
     cd /app/PathGeneration; \
     mvn package -DskipTests; \
-    mv target/PathGeneration.jar /; \
+    mkdir -p /output; \
+    mv target/PathGeneration.jar "/output/pathGenerator_${GAMESERVER_GIT_REF}.jar"; \
     rm -fr /app /tmp/* /root/.m2/repository/*;
 
 ENTRYPOINT ["java", "-jar", "/PathGeneration.jar"]

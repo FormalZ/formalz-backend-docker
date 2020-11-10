@@ -14,5 +14,6 @@ RUN set -ex; \
     mkdir -p "/formalz-game_${GAMESERVER_GIT_REF}/js"; \
     mv /app/Front-end/dist/game.min.js "/formalz-game_${GAMESERVER_GIT_REF}/js"; \
     mv /app/Front-end/dist/assets "/formalz-game_${GAMESERVER_GIT_REF}"; \
-    tar -czvf "/formalz-game_${GAMESERVER_GIT_REF}.tar.gz" "/formalz-game_${GAMESERVER_GIT_REF}" > /dev/null 2>&1; \
+    mkdir -p /output; \
+    tar -czvf "/output/formalz-game_${GAMESERVER_GIT_REF}.tar.gz" "/formalz-game_${GAMESERVER_GIT_REF}" > /dev/null 2>&1; \
     rm -fr "/formalz-game_${GAMESERVER_GIT_REF}" /app /tmp/*;
